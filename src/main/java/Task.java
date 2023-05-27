@@ -3,10 +3,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Task {
+//    private String taskInfo;
     String name;
     LocalDateTime start;
     LocalDateTime end;
-
+//    public String getTaskInfo() {
+//        return taskInfo;
+//    }
     public Task(String name) {
         this.name = name;
         this.start = LocalDateTime.now();
