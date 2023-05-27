@@ -44,6 +44,10 @@ out/
 *.iml
 *.ipr
 *.iws
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+
 
 ##############################
 ## Eclipse
