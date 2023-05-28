@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -8,12 +9,16 @@ import java.util.List;
 class Demo {
     LogToFile logToFile;
     ReadFromFile readFromFile;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    Raport raport;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final String filePath = "timeLogs.csv";
+    public static final String filePath2 = "rest.csv";
 
     public Demo() {
         this.logToFile = new LogToFile();
         this.readFromFile = new ReadFromFile();
+        this.raport = new Raport();
     }
 
     public void start(String projectName, String taskName) {
@@ -108,7 +113,7 @@ class Demo {
         return Files.exists(Paths.get(filePath));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Demo demo = new Demo();
 
         if (args.length == 5) {
@@ -137,11 +142,12 @@ class Demo {
                 demo.last();
             } else if (args[0].equals("--help")) {
                 demo.helpInfo();
+            } else if (args[0].equals("report")) {
+                demo.raport.generatorRaportu(filePath);
             }
         } else {
             demo.helpInfo();
         }
-
     }
 
     public void editStartTime(String index, String timeStart) {

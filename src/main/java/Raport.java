@@ -1,62 +1,96 @@
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 public class Raport {
     static long id;
     ReadFromFile readFromFile;
-    Project project;
-    Task task;
-
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//    private static final String path = "rest.csv";
 
     public Raport() {
         this.readFromFile = new ReadFromFile();
     }
 
-    public void generatorRaportu() {
-        List<String> lines = this.readFromFile.readFile();
-        for (String s : lines) {
-            String[] line = s.split("\\|");
-            for (String l : line) {
-                l.trim();
+    public void generatorRaportu(String path) throws FileNotFoundException {
+        Map<String, Integer> hm = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split("\\|");
+
+                String projectName = values[2];
+
+                LocalDateTime ld1 = LocalDateTime.parse(values[0].trim(), formatter);
+                LocalDateTime ld2 = LocalDateTime.parse(values[1].trim(), formatter);
+                Integer diff = (int) Math.abs(ChronoUnit.MINUTES.between(ld1, ld2)) / 60;
+
+                if (hm.containsKey(projectName)) {
+                    diff += hm.get(projectName);
+                }
+                hm.put(projectName, diff);
             }
-            String projectName = line[2];
-            System.out.println("------------------------------------------");
-            System.out.printf("%-10s %s %s\n", getId(), "Project: " + projectName, "");
-            System.out.println("------------------------------------------");
-            printTasks(projectName);
+
+            for (String name : hm.keySet()) {
+                String key = name;
+                String value = hm.get(name).toString();
+                System.out.println("-------------------------------------------");
+                System.out.printf("| %-2s | %-10s | %-8s | %10s |%n", getId(), "Project: ", key, value + " sec");
+                System.out.println("-------------------------------------------");
+                printTasks(name, path);
+            }
+            System.out.println("-------------------------------------------");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-
-        System.out.printf("|  %-20s |  %-20s |", "hel", "world");
-        System.out.printf("|  %-20s |  %-20s |", "hel", "world");
-
     }
 
-    public static void main(String[] args) {
-        Raport raport = new Raport();
-        raport.generatorRaportu();
-    }
+//    public static void main(String[] args) throws FileNotFoundException {
+//        Raport raport = new Raport();
+//        raport.generatorRaportu(path);
+//    }
 
     public long getId() {
         id++;
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void printTasks(String projectName, String path) {
+        Map<String, Integer> hm2 = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = br.readLine()) != null) {
 
-    public void printTasks(String projectName) {
-        List<String> lines = this.readFromFile.readFile();
-        for (String s : lines) {
-                String[] line = s.split("\\|");
-                for (String l : line) {
-                    l.trim();
+                String[] values = line.split("\\|");
+
+                LocalDateTime ld1 = LocalDateTime.parse(values[0].trim(), formatter);
+                LocalDateTime ld2 = LocalDateTime.parse(values[1].trim(), formatter);
+
+                Integer diff2 = (int) Math.abs(ChronoUnit.MINUTES.between(ld1, ld2)) / 60;
+
+                String taskName = values[3].trim();
+
+                if (hm2.containsKey(taskName)) {
+                    diff2 += hm2.get(taskName);
                 }
-                String taskName = line[2];
-                if (taskName.equals(projectName)) {
-                    System.out.printf("%-5s %s %s\n", "", "Task: " + line[3], "");
+
+                hm2.put(taskName, diff2);
+
+                String taskOfProject = values[2];
+                if (taskOfProject.equals(projectName)) {
+                    System.out.printf("| %-2s | %-10s | %-8s | %10s |%n", "", "Task: ",
+                            taskName, hm2.get(taskName) + " sec");
+                }
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-
 }
