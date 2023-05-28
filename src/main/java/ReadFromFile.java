@@ -15,7 +15,7 @@ public class ReadFromFile {
             String[] lines = content.split("\n");
 
             for (String line : lines) {
-                line = line + "\n";
+//                line = line + "\n";
                 linesList.add(line);
             }
         } catch (IOException e) {

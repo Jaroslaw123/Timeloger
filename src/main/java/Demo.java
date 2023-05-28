@@ -1,9 +1,13 @@
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 class Demo {
     LogToFile logToFile;
@@ -31,13 +35,21 @@ class Demo {
         this.logToFile.fileLogingStart(res);
     }
 
-    public void last() {
+    public void last(int number) {
         if (isLogFileExists(filePath)) {
-            String[] lastLine = readLastLine();
-            for (String s : lastLine) {
-                System.out.print(s);
+            if (number == 0) {
+                String[] lastLine = readLastLine();
+                for (String s : lastLine) {
+                    System.out.print(s);
+                }
+                System.out.println("");
+            } else if (number > 0) {
+                for (String readNumLine : readNumLines(number)) {
+                    System.out.println(readNumLine);
+                }
+            } else {
+                System.out.println("Błędny parametr liczby tasków");
             }
-            System.out.println("");
         } else {
             System.out.println("Błędna ścieżka do pliku");
         }
@@ -62,11 +74,27 @@ class Demo {
             return null;
         }
     }
+    public List<String> readNumLines(int n) {
+        List<String> fileContent = readFromFile.readFile();
+        if (fileContent != null && !fileContent.isEmpty()) {
+            List<String> allLines = new ArrayList<>();
+            if (fileContent.size() < n) {
+                n = fileContent.size();
+            }
+
+            for (int i = fileContent.size() - n; i < fileContent.size(); i++) {
+                allLines.add(fileContent.get(i));
+            }
+            return allLines;
+        } else {
+            return null;
+        }
+    }
 
     public String[] findLineByIndex(String index) {
         List<String> fileContent = readFromFile.readFile();
         if (fileContent != null && !fileContent.isEmpty()) {
-            String line = fileContent.get(Integer.parseInt(index));
+            String line = fileContent.get(parseInt(index));
             if (line != null) {
                 return line.split("\\|");
             }
@@ -91,7 +119,7 @@ class Demo {
         List<String> fileContent = readFromFile.readFile();
         if (fileContent != null && !fileContent.isEmpty()) {
             for (String line : fileContent) {
-                System.out.print(line);
+                System.out.println(line);
             }
         }
     }
@@ -127,18 +155,22 @@ class Demo {
             } else if (args[0].equals("edit") && args[2].equals("-pn")) {
                 //demo.editTaskName(args[1], args[3]);
             }
-        }
-        else if (args.length == 1) {
+        } else if (args.length == 1) {
             if (args[0].equals("stop")) {
                 demo.stop();
             } else if (args[0].equals("list")) {
                 demo.readList();
-            } else if (args[0].equals("last")) {
-                demo.last();
             } else if (args[0].equals("--help")) {
                 demo.helpInfo();
             }
-        } else {
+            else if (args[0].equals("last") ) {
+                demo.last(0);
+            }
+        }
+        else if (args.length == 3 && args[0].equals("last") && args[1].equals("-n")) {
+            demo.last(parseInt(args[2]));
+        }
+        else {
             demo.helpInfo();
         }
 
