@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadFromFile {
-    private static final String path = "/home/jarek/Studia/MWO/II_sem/Timeloger/Timeloger/target/timeLogs.csv";
+
 //    public List<String> readFile(String filePath) {
     public List<String> readFile() {
         List<String> linesList = new ArrayList<>();
         try {
 
-            String content = Files.readString(Paths.get(path));
+            String content = Files.readString(Paths.get(Demo.filePath));
             String[] lines = content.split("\n");
 
             for (String line : lines) {

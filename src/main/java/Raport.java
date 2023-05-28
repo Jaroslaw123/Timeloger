@@ -6,7 +6,6 @@ public class Raport {
     Project project;
     Task task;
 
-    private static final String path = "/home/jarek/Studia/MWO/II_sem/Timeloger/Timeloger/target/timeLogs.csv";
 
     public Raport() {
         this.readFromFile = new ReadFromFile();

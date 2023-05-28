@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class LogToFile {
-    private static final String path = "/home/jarek/Studia/MWO/II_sem/Timeloger/Timeloger/target/timeLogs.csv";
 
     FileWriter fileWriter;
     ReadFromFile readFromFile;
@@ -21,7 +20,7 @@ public class LogToFile {
     }
     public void fileLogingStart(List<String> lineToLog){
         try {
-            fileWriter = new FileWriter(LogToFile.path,true);
+            fileWriter = new FileWriter(Demo.filePath,true);
             BufferedWriter out = new BufferedWriter(fileWriter);
             out.write(parseInput(lineToLog));
             out.close();
@@ -41,7 +40,7 @@ public class LogToFile {
 
                 fileContent.set(fileContent.size() - 1, updatedLine);
 
-                fileWriter = new FileWriter(LogToFile.path);
+                fileWriter = new FileWriter(Demo.filePath);
                 BufferedWriter out = new BufferedWriter(fileWriter);
                 for (String line : fileContent) {
                     out.write(line);
