@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,10 +16,12 @@ class Demo {
     ReadFromFile readFromFile;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public static final String filePath = "timeLogs.csv";
+    Raport raport;
 
     public Demo() {
         this.logToFile = new LogToFile();
         this.readFromFile = new ReadFromFile();
+        this.raport = new Raport();
     }
 
     public void start(String projectName, String taskName) {
@@ -108,12 +111,6 @@ class Demo {
         if (fileContent != null && !fileContent.isEmpty()) {
             String[] line = fileContent.get(id).split("\\|");
             return line;
-//            for (int i = fileContent.size() - 1; i > 0; i--) {
-//                if (fileContent.get(i).contains(projectName))
-//                        && fileContent.get(i).contains(taskName)) {
-//                    return fileContent.get(i).split("\\|");
-//                }
-//            }
         }
         return null;
     }
@@ -130,11 +127,6 @@ class Demo {
     }
 
     public void helpInfo() {
-//        System.out.println("usage: start -p <name> -t <name>");
-//        System.out.println("       stop");
-//        System.out.println("       continue");
-//        System.out.println("       last");
-//        System.out.println("       list");
         Help help = new Help();
         help.displayHelpMessage();
     }
@@ -143,7 +135,7 @@ class Demo {
         return Files.exists(Paths.get(filePath));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Demo demo = new Demo();
 
         if (args.length == 5) {
@@ -154,11 +146,11 @@ class Demo {
             if (args[0].equals("edit") && args[2].equals("-ts")) {
                 demo.editStartTime(args[1], args[3]);
             } else if (args[0].equals("edit") && args[2].equals("-te")) {
-                //demo.editStopTime(args[1], args[3])
+
             } else if (args[0].equals("edit") && args[2].equals("-pn")) {
-                //demo.editProjectName(args[1], args[3]);
+
             } else if (args[0].equals("edit") && args[2].equals("-pn")) {
-                //demo.editTaskName(args[1], args[3]);
+
             }
         }
         else if (args.length == 3) {
@@ -177,6 +169,9 @@ class Demo {
             else if (args[0].equals("last") ) {
                 demo.last(0);
             }
+            else if (args[0].equals("report")) {
+                demo.raport.generatorRaportu(filePath);
+            }
         }
         else if (args.length == 3 && args[0].equals("last") && args[1].equals("-n")) {
             demo.last(parseInt(args[2]));
@@ -190,25 +185,6 @@ class Demo {
     public void editStartTime(String index, String timeStart) {
     }
 
-//    public void continueTask(String projectName, String taskName) {
-//        if (isLogFileExists(filePath)) {
-//            if (readLastLine().length < 4) {
-//                stop();
-//            }
-//            String[] foundTaskAndProject = findLine(projectName, taskName);
-//            if (foundTaskAndProject != null) {
-//                String project = foundTaskAndProject[2].trim();
-//                String task = foundTaskAndProject[3].trim();
-//                Project found = new Project(project);
-//                Task foundT = new Task(task);
-//                List<String> res = List.of(found.getStart().format(formatter),
-//                        found.getName(), foundT.getName());
-//                this.logToFile.fileLogingStart(res);
-//            } else {
-//                System.out.println("Bledna nazwa projektu lub zadania");
-//            }
-//        }
-//    }
 public void continueTask(int id) {
         if (isLogFileExists(filePath)) {
             List<String> fileContent = readFromFile.readFile();
