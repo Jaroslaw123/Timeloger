@@ -17,9 +17,9 @@ class Demo {
     }
 
     public void start(String projectName, String taskName) {
-        if (isLogFileExists(filePath)) {
-            stop();
-        }
+//        if (isLogFileExists(filePath)) {
+//            stop();
+//        }
         Project project = new Project(projectName);
         Task task = new Task(taskName);
         List<String> res = List.of(project.getStart().format(formatter),
@@ -30,25 +30,12 @@ class Demo {
     public void last() {
         if (isLogFileExists(filePath)) {
             String[] lastLine = readLastLine();
-            if (lastLine.length < 4) {
-                String project = lastLine[1].trim();
-                String task = lastLine[2].trim();
-                Project found = new Project(project);
-                Task foundTask = new Task(task);
-                List<String> res = List.of(found.getStart().format(formatter),
-                        found.getName(), foundTask.getName());
-                System.out.println(res);
-            } else {
-                String project = lastLine[2].trim();
-                String task = lastLine[3].trim();
-                Project found = new Project(project);
-                Task foundTask = new Task(task);
-                List<String> res = List.of(found.getStart().format(formatter),
-                        found.getName(), foundTask.getName());
-                System.out.println(res);
+            for (String s : lastLine) {
+                System.out.print(s);
             }
+            System.out.println("");
         } else {
-            System.out.println("Nie masz rozpoczętych projektów");
+            System.out.println("Błędna ścieżka do pliku");
         }
     }
 
