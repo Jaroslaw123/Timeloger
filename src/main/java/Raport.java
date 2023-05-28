@@ -37,7 +37,6 @@ public class Raport {
                 }
                 hm.put(projectName, diff);
             }
-
             for (String name : hm.keySet()) {
                 String key = name;
                 String value = hm.get(name).toString();

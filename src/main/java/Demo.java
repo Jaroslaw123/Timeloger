@@ -19,7 +19,6 @@ class Demo {
         this.readFromFile = new ReadFromFile();
         this.raport = new Raport();
     }
-
     public void start(String projectName, String taskName) {
         if(isLogFileExists(filePath)) {
             String[] lastLine = readLastLine();
