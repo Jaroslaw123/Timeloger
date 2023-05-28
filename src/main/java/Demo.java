@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLOutput;
@@ -102,15 +103,17 @@ class Demo {
         return null;
     }
 
-    public String[] findLine(String projectName, String taskName) {
+    public String[] findLine(int id) {
         List<String> fileContent = readFromFile.readFile();
         if (fileContent != null && !fileContent.isEmpty()) {
-            for (int i = fileContent.size() - 1; i > 0; i--) {
-                if (fileContent.get(i).contains(projectName)
-                        && fileContent.get(i).contains(taskName)) {
-                    return fileContent.get(i).split("\\|");
-                }
-            }
+            String[] line = fileContent.get(id).split("\\|");
+            return line;
+//            for (int i = fileContent.size() - 1; i > 0; i--) {
+//                if (fileContent.get(i).contains(projectName))
+//                        && fileContent.get(i).contains(taskName)) {
+//                    return fileContent.get(i).split("\\|");
+//                }
+//            }
         }
         return null;
     }
@@ -118,8 +121,10 @@ class Demo {
     public void readList() {
         List<String> fileContent = readFromFile.readFile();
         if (fileContent != null && !fileContent.isEmpty()) {
+            int counter = 1;
             for (String line : fileContent) {
-                System.out.println(line);
+                System.out.println("[" + counter + "] " + line);
+                counter++;
             }
         }
     }
@@ -142,8 +147,6 @@ class Demo {
         if (args.length == 5) {
             if (args[0].equals("start") && args[1].equals("-p") && args[3].equals("-t")) {
                 demo.start(args[2], args[4]);
-            } else if (args[0].equals("continue") && args[1].equals("-p") && args[3].equals("-t")) {
-                    demo.continueTask(args[2], args[4]);
             }
         } else if (args.length == 4) {
             if (args[0].equals("edit") && args[2].equals("-ts")) {
@@ -155,7 +158,13 @@ class Demo {
             } else if (args[0].equals("edit") && args[2].equals("-pn")) {
                 //demo.editTaskName(args[1], args[3]);
             }
-        } else if (args.length == 1) {
+        }
+        else if (args.length == 3) {
+            if (args[0].equals("continue") && args[1].equals("-id")) {
+                demo.continueTask(parseInt(args[2]));
+            }
+        }
+        else if (args.length == 1) {
             if (args[0].equals("stop")) {
                 demo.stop();
             } else if (args[0].equals("list")) {
@@ -179,22 +188,49 @@ class Demo {
     public void editStartTime(String index, String timeStart) {
     }
 
-    public void continueTask(String projectName, String taskName) {
+//    public void continueTask(String projectName, String taskName) {
+//        if (isLogFileExists(filePath)) {
+//            if (readLastLine().length < 4) {
+//                stop();
+//            }
+//            String[] foundTaskAndProject = findLine(projectName, taskName);
+//            if (foundTaskAndProject != null) {
+//                String project = foundTaskAndProject[2].trim();
+//                String task = foundTaskAndProject[3].trim();
+//                Project found = new Project(project);
+//                Task foundT = new Task(task);
+//                List<String> res = List.of(found.getStart().format(formatter),
+//                        found.getName(), foundT.getName());
+//                this.logToFile.fileLogingStart(res);
+//            } else {
+//                System.out.println("Bledna nazwa projektu lub zadania");
+//            }
+//        }
+//    }
+public void continueTask(int id) {
         if (isLogFileExists(filePath)) {
-            if (readLastLine().length < 4) {
-                stop();
-            }
-            String[] foundTaskAndProject = findLine(projectName, taskName);
-            if (foundTaskAndProject != null) {
-                String project = foundTaskAndProject[2].trim();
-                String task = foundTaskAndProject[3].trim();
-                Project found = new Project(project);
-                Task foundT = new Task(task);
-                List<String> res = List.of(found.getStart().format(formatter),
-                        found.getName(), foundT.getName());
-                this.logToFile.fileLogingStart(res);
+            List<String> fileContent = readFromFile.readFile();
+            if(id > 0 && id < fileContent.size()) {
+                String[] foundTaskAndProject = findLine(id - 1);
+
+
+                String projectName;
+                String taskName;
+                if (foundTaskAndProject.length == 3) {
+                    projectName = foundTaskAndProject[1];
+                    taskName = foundTaskAndProject[2];
+
+                } else {
+                    projectName = foundTaskAndProject[2];
+                    taskName = foundTaskAndProject[3];
+                }
+                if (foundTaskAndProject != null) {
+                    start(projectName, taskName);
+                } else {
+                    System.out.println("Bledna nazwa projektu lub zadania");
+                }
             } else {
-                System.out.println("Bledna nazwa projektu lub zadania");
+                System.out.println("Podaj wlasciwe id zadania");
             }
         }
     }
