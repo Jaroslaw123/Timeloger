@@ -28,7 +28,7 @@ class Demo {
         if(isLogFileExists(filePath)) {
             String[] lastLine = readLastLine();
             if (lastLine.length < 4) {
-                System.out.println("Ostatni projekt został zakończony !!!");
+                System.out.println("Poprzednie zadanie zostało zakończone.");
                 stop();
             }
         }
@@ -157,6 +157,10 @@ class Demo {
             if (args[0].equals("continue") && args[1].equals("-id")) {
                 demo.continueTask(parseInt(args[2]));
             }
+            else if (args[0].equals("last") && args[1].equals("-n")) {
+                demo.last(parseInt(args[2]));
+            }
+
         }
         else if (args.length == 1) {
             if (args[0].equals("stop")) {
@@ -173,9 +177,7 @@ class Demo {
                 demo.raport.generatorRaportu(filePath);
             }
         }
-        else if (args.length == 3 && args[0].equals("last") && args[1].equals("-n")) {
-            demo.last(parseInt(args[2]));
-        }
+
         else {
             demo.helpInfo();
         }
