@@ -14,7 +14,7 @@ import static java.lang.Integer.parseInt;
 class Demo {
     LogToFile logToFile;
     ReadFromFile readFromFile;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final String filePath = "timeLogs.csv";
     Raport raport;
 
