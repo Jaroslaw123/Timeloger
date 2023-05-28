@@ -20,5 +20,5 @@ java -jar Timeloger-1.0-SNAPSHOT.jar stop
 
 
 SCENARIUSZ IV
-java -jar Timeloger-1.0-SNAPSHOT.jar help
+java -jar Timeloger-1.0-SNAPSHOT.jar --help
 java -jar Timeloger-1.0-SNAPSHOT.jar continue -id 2
