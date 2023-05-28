@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadFromFile {
-    private static final String path = System.getProperty("user.dir") + "/timelogs.csv";
+    private static final String path = "/home/jarek/Studia/MWO/II_sem/Timeloger/Timeloger/target/timeLogs.csv";
 //    public List<String> readFile(String filePath) {
     public List<String> readFile() {
         List<String> linesList = new ArrayList<>();

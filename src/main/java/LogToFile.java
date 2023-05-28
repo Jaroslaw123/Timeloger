@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class LogToFile {
-    private static final String path = System.getProperty("user.dir") + "/timelogs.csv";
+    private static final String path = "/home/jarek/Studia/MWO/II_sem/Timeloger/Timeloger/target/timeLogs.csv";
 
     FileWriter fileWriter;
     ReadFromFile readFromFile;

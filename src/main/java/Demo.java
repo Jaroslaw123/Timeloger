@@ -9,7 +9,7 @@ class Demo {
     LogToFile logToFile;
     ReadFromFile readFromFile;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private static final String filePath = System.getProperty("user.dir") + "/timeLogs.csv";
+    private static final String filePath = "/home/jarek/Studia/MWO/II_sem/Timeloger/Timeloger/target/timeLogs.csv";
 
     public Demo() {
         this.logToFile = new LogToFile();
@@ -31,14 +31,13 @@ class Demo {
         if (isLogFileExists(filePath)) {
             String[] lastLine = readLastLine();
             if (lastLine.length < 4) {
-                stop();
                 String project = lastLine[1].trim();
                 String task = lastLine[2].trim();
                 Project found = new Project(project);
                 Task foundTask = new Task(task);
                 List<String> res = List.of(found.getStart().format(formatter),
                         found.getName(), foundTask.getName());
-                this.logToFile.fileLogingStart(res);
+                System.out.println(res);
             } else {
                 String project = lastLine[2].trim();
                 String task = lastLine[3].trim();
@@ -46,7 +45,7 @@ class Demo {
                 Task foundTask = new Task(task);
                 List<String> res = List.of(found.getStart().format(formatter),
                         found.getName(), foundTask.getName());
-                this.logToFile.fileLogingStart(res);
+                System.out.println(res);
             }
         } else {
             System.out.println("Nie masz rozpoczętych projektów");
