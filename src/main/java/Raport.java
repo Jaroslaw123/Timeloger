@@ -28,8 +28,16 @@ public class Raport {
 
                 String projectName = values[2];
 
+
                 LocalDateTime ld1 = LocalDateTime.parse(values[0].trim(), formatter);
-                LocalDateTime ld2 = LocalDateTime.parse(values[1].trim(), formatter);
+                LocalDateTime ld2;
+                if (values.length < 4) {
+                    ld2 = LocalDateTime.now();
+                } else {
+                    ld2 = LocalDateTime.parse(values[1].trim(), formatter);
+                }
+
+
                 Integer diff = (int) Math.abs(ChronoUnit.SECONDS.between(ld1, ld2));
 
                 if (hm.containsKey(projectName)) {
@@ -51,11 +59,6 @@ public class Raport {
         }
     }
 
-//    public static void main(String[] args) throws FileNotFoundException {
-//        Raport raport = new Raport();
-//        raport.generatorRaportu(path);
-//    }
-
     public long getId() {
         id++;
         return id;
@@ -69,11 +72,18 @@ public class Raport {
                 String[] values = line.split("\\|");
 
                 LocalDateTime ld1 = LocalDateTime.parse(values[0].trim(), formatter);
-                LocalDateTime ld2 = LocalDateTime.parse(values[1].trim(), formatter);
+
+                LocalDateTime ld2;
+                String taskName;
+                if (values.length < 4) {
+                    ld2 = LocalDateTime.now();
+                    taskName = values[2].trim();
+                } else {
+                    ld2 = LocalDateTime.parse(values[1].trim(), formatter);
+                    taskName = values[3].trim();
+                }
 
                 Integer diff2 = (int) Math.abs(ChronoUnit.SECONDS.between(ld1, ld2));
-
-                String taskName = values[3].trim();
 
                 if (hm2.containsKey(taskName)) {
                     diff2 += hm2.get(taskName);
