@@ -1,0 +1,25 @@
+SCENARIUSZ I
+
+java –jar Timeloger-1.0-SNAPSHOT.jar start -p MWO -t Task a
+java –jar Timeloger-1.0-SNAPSHOT.jar stop
+java –jar Timeloger-1.0-SNAPSHOT.jar list
+java –jar Timeloger-1.0-SNAPSHOT.jar start -p Projekt2 -t Task b
+java –jar Timeloger-1.0-SNAPSHOT.jar start -p Projekt3 -t Task c
+java –jar Timeloger-1.0-SNAPSHOT.jar stop
+java –jar Timeloger-1.0-SNAPSHOT.jar list
+
+
+
+SCENARIUSZ II
+java –jar Timeloger-1.0-SNAPSHOT.jar last 2
+java –jar Timeloger-1.0-SNAPSHOT.jar report
+
+SCENARIUSZ III
+
+java –jar Timeloger-1.0-SNAPSHOT.jar start -p MWO -t Task d
+java –jar Timeloger-1.0-SNAPSHOT.jar stop
+java –jar Timeloger-1.0-SNAPSHOT.jar stop
+
+SCENARIUSZ IV
+
+java –jar Timeloger-1.0-SNAPSHOT.jar help
