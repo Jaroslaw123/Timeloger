@@ -30,7 +30,7 @@ public class Raport {
 
                 LocalDateTime ld1 = LocalDateTime.parse(values[0].trim(), formatter);
                 LocalDateTime ld2 = LocalDateTime.parse(values[1].trim(), formatter);
-                Integer diff = (int) Math.abs(ChronoUnit.MINUTES.between(ld1, ld2)) / 60;
+                Integer diff = (int) Math.abs(ChronoUnit.SECONDS.between(ld1, ld2));
 
                 if (hm.containsKey(projectName)) {
                     diff += hm.get(projectName);
@@ -71,7 +71,7 @@ public class Raport {
                 LocalDateTime ld1 = LocalDateTime.parse(values[0].trim(), formatter);
                 LocalDateTime ld2 = LocalDateTime.parse(values[1].trim(), formatter);
 
-                Integer diff2 = (int) Math.abs(ChronoUnit.MINUTES.between(ld1, ld2)) / 60;
+                Integer diff2 = (int) Math.abs(ChronoUnit.SECONDS.between(ld1, ld2));
 
                 String taskName = values[3].trim();
 
