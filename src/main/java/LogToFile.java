@@ -31,7 +31,7 @@ public class LogToFile {
     }
     public void fileLogingStop(String stopDate) {
         try {
-            List<String> fileContent = this.readFromFile.readFile(path);
+            List<String> fileContent = this.readFromFile.readFile();
             if (!fileContent.isEmpty()) {
                 String lastLine = fileContent.get(fileContent.size() - 1);
                 String[] lastline = lastLine.split("\\|");

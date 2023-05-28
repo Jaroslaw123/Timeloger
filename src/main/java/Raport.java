@@ -13,7 +13,7 @@ public class Raport {
     }
 
     public void generatorRaportu() {
-        List<String> lines = this.readFromFile.readFile(path);
+        List<String> lines = this.readFromFile.readFile();
         for (String s : lines) {
             String[] line = s.split("\\|");
             for (String l : line) {
@@ -47,7 +47,7 @@ public class Raport {
     }
 
     public void printTasks(String projectName) {
-        List<String> lines = this.readFromFile.readFile(path);
+        List<String> lines = this.readFromFile.readFile();
         for (String s : lines) {
                 String[] line = s.split("\\|");
                 for (String l : line) {
