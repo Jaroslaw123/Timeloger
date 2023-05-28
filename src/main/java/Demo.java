@@ -130,11 +130,13 @@ class Demo {
     }
 
     public void helpInfo() {
-        System.out.println("usage: start -p <name> -t <name>");
-        System.out.println("       stop");
-        System.out.println("       continue");
-        System.out.println("       last");
-        System.out.println("       list");
+//        System.out.println("usage: start -p <name> -t <name>");
+//        System.out.println("       stop");
+//        System.out.println("       continue");
+//        System.out.println("       last");
+//        System.out.println("       list");
+        Help help = new Help();
+        help.displayHelpMessage();
     }
 
     public boolean isLogFileExists(String filePath) {
