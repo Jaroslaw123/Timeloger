@@ -61,7 +61,6 @@ public class Raport {
         id++;
         return id;
     }
-
     public void printTasks(String projectName, String path) {
         Map<String, Integer> hm2 = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {

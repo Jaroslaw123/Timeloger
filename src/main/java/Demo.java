@@ -14,7 +14,6 @@ class Demo {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final String filePath = "timeLogs.csv";
     public static final String filePath2 = "rest.csv";
-
     public Demo() {
         this.logToFile = new LogToFile();
         this.readFromFile = new ReadFromFile();
