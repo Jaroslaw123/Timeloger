@@ -26,17 +26,17 @@ public class Raport {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split("\\|");
 
-                String projectName = values[2];
-
+                String projectName;
 
                 LocalDateTime ld1 = LocalDateTime.parse(values[0].trim(), formatter);
                 LocalDateTime ld2;
                 if (values.length < 4) {
                     ld2 = LocalDateTime.now();
+                    projectName = values[1];
                 } else {
                     ld2 = LocalDateTime.parse(values[1].trim(), formatter);
+                    projectName = values[2];
                 }
-
 
                 Integer diff = (int) Math.abs(ChronoUnit.SECONDS.between(ld1, ld2));
 
