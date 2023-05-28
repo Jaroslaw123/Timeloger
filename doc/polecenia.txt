@@ -9,7 +9,7 @@ java -jar Timeloger-1.0-SNAPSHOT.jar list
 
 
 SCENARIUSZ II
-java -jar Timeloger-1.0-SNAPSHOT.jar last 2
+java -jar Timeloger-1.0-SNAPSHOT.jar last -n 2
 java -jar Timeloger-1.0-SNAPSHOT.jar report
 
 
