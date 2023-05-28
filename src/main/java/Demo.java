@@ -9,7 +9,6 @@ class Demo {
     LogToFile logToFile;
     ReadFromFile readFromFile;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//    private static final String filePath = "/home/jarek/Studia/MWO/II_sem/Timeloger/Timeloger/target/timeLogs.csv";
     public static final String filePath = "timeLogs.csv";
 
     public Demo() {
@@ -18,12 +17,13 @@ class Demo {
     }
 
     public void start(String projectName, String taskName) {
-//        String[] lastLine = readLastLine();
-//        System.out.println(lastLine.length);
-//        if(lastLine.length < 4) {
-//            System.out.println("Ostatni projekt został zakończony !!!");
-//            stop();
-//        }
+        if(isLogFileExists(filePath)) {
+            String[] lastLine = readLastLine();
+            if (lastLine.length < 4) {
+                System.out.println("Ostatni projekt został zakończony !!!");
+                stop();
+            }
+        }
         Project project = new Project(projectName);
         Task task = new Task(taskName);
         List<String> res = List.of(project.getStart().format(formatter),
