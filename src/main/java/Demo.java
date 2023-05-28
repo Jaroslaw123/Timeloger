@@ -64,7 +64,7 @@ class Demo {
     }
 
     public String[] readLastLine() {
-        List<String> fileContent = readFromFile.readFile(filePath);
+        List<String> fileContent = readFromFile.readFile();
         if (fileContent != null && !fileContent.isEmpty()) {
             String lastLine = fileContent.get(fileContent.size() - 1);
             return lastLine.split("\\|");
@@ -74,7 +74,7 @@ class Demo {
     }
 
     public String[] findLineByIndex(String index) {
-        List<String> fileContent = readFromFile.readFile(filePath);
+        List<String> fileContent = readFromFile.readFile();
         if (fileContent != null && !fileContent.isEmpty()) {
             String line = fileContent.get(Integer.parseInt(index));
             if (line != null) {
@@ -85,7 +85,7 @@ class Demo {
     }
 
     public String[] findLine(String projectName, String taskName) {
-        List<String> fileContent = readFromFile.readFile(filePath);
+        List<String> fileContent = readFromFile.readFile();
         if (fileContent != null && !fileContent.isEmpty()) {
             for (int i = fileContent.size() - 1; i > 0; i--) {
                 if (fileContent.get(i).contains(projectName)
@@ -98,7 +98,7 @@ class Demo {
     }
 
     public void readList() {
-        List<String> fileContent = readFromFile.readFile(filePath);
+        List<String> fileContent = readFromFile.readFile();
         if (fileContent != null && !fileContent.isEmpty()) {
             for (String line : fileContent) {
                 System.out.print(line);
