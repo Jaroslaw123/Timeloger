@@ -2,7 +2,7 @@
 Console App for logging time work in selected projects
 
 LISTA KOMEND:<br>
-start –p <nazwa projektu> - t<nazwa zadania> - rozpoczęcie nowego zadania <br>
+start -p <nazwa projektu> -t <nazwa zadania> - rozpoczęcie nowego zadania <br>
 stop – zakończenie bieżącego zadania <br>
 last +n – wyświetlenie n ostatnich logów wraz z numerami indeksów <br>
 list – wyświetlenie wszystkich logów <br>
